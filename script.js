@@ -4,8 +4,8 @@ const isNamber = function (num) {
     return !isNaN(parseFloat(num)) && isFinite(num)
 }
 
-const main = function (numGamer) {
-    const randomNum = Math.round(Math.random() * 100);
+const main = function (randomNum) {
+    let numGamer = prompt("Угадайте число от 1 до 100");
 
     const testOnNambers = function () {
         if (!isNamber(numGamer) && numGamer !== null) {
@@ -44,4 +44,4 @@ const main = function (numGamer) {
 
 }
 
-main(prompt("Угадайте число от 1 до 100"));
+main(Math.round(Math.random() * 100));
