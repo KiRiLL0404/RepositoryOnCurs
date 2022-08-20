@@ -4,7 +4,7 @@ const isNamber = function (num) {
     return !isNaN(parseFloat(num)) && isFinite(num)
 }
 
-const main = function (randomNum) {
+const main = function (randomNum, counter) {
     let numGamer = prompt("Угадайте число от 1 до 100");
 
     const testOnNambers = function () {
@@ -14,27 +14,37 @@ const main = function (randomNum) {
         }
         if (numGamer === null) {
             alert("Игра окончена");
+            return
+        }
+
+        if (counter === 0) {
+            if (confirm("попытки закончились, хотите сыграть ещё?")) main(Math.round(Math.random() * 100), 10);
+            return
         }
     }
 
     const numberComparison = function () {
-        if (numGamer === null) return
+        if (numGamer === null || counter === 0) return
         else {
 
             if (+numGamer > randomNum) {
-                numGamer = prompt("Заданное число меньше");
+                counter--;
+                numGamer = prompt("Заданное число меньше, осталось попыток " + counter);
                 testOnNambers();
                 numberComparison();
             }
 
-            if (+numGamer < randomNum) {
-                numGamer = prompt("Заданное число больше");
+            else if (+numGamer < randomNum) {
+                counter--;
+                numGamer = prompt("Заданное число больше, осталось попыток " + counter);
                 testOnNambers();
                 numberComparison();
             }
-            else {
-                alert("Поздравляю вы победили!");
-                return
+
+            else if (+numGamer === randomNum) {
+                if (confirm("Поздравляю вы победили! Хотели бы сыграть ещё?")) {
+                    main(Math.round(Math.random() * 100), 10);
+                } else return
             }
         }
     }
@@ -42,6 +52,6 @@ const main = function (randomNum) {
     testOnNambers();
     numberComparison();
 
-}
 
-main(Math.round(Math.random() * 100));
+}
+main(Math.round(Math.random() * 100), 10);
